@@ -34,6 +34,7 @@ async def generate_response(message: str):
         yield f"{chunk.content}"
         await asyncio.sleep(0.01)
 
+# Testing event streaming (SSE) with frontend
 async def event_generator(data: str):
     for i in range(10):
         await asyncio.sleep(0.1)
@@ -54,6 +55,7 @@ async def chat(request: Request):
     message = body.get("message","")
     return StreamingResponse(generate_response(message), media_type="text/event-stream")
 
+# Testing event streaming (SSE) with frontend
 @app.get("/stream")
 async def stream(input: str = "default"):
     return StreamingResponse(event_generator(input), media_type="text/event-stream")
